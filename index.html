@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuestra boda · Invitación</title>
+<style>
+:root {
+  --site-primary: #6b7d68;
+  --site-on-primary: #ffffff;
+  --site-secondary: #eadfd3;
+  --site-on-secondary: #453b35;
+  --site-background: #f8f5f0;
+  --site-on-background: #342e2a;
+  --site-font-body: Georgia, 'Times New Roman', serif;
+  --site-font-heading: 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: light-dark(#f8f5f0, #252421); color: light-dark(#342e2a, #f2e9df); font-family: var(--site-font-body); }
+#app { min-height: 100vh; width: 100%; border-radius: 0; overflow: hidden; background-color: var(--site-background); color: var(--site-on-background); position: relative; }
+.hero { min-height: 100svh; display: grid; place-items: center; padding: calc(28px * var(--site-spacing-scale)); position: relative; isolation: isolate; background: radial-gradient(ellipse at 50% 25%, #fffdf9 0%, #f8f2ea 56%, #e9e2d7 100%); }
+.hero::before, .hero::after { content: ''; position: absolute; width: 260px; height: 260px; border: 1px solid #9aab91; border-radius: 70% 30% 65% 35%; opacity: calc(.32 * var(--site-decoration-opacity)); z-index: -1; }
+.hero::before { top: 5%; left: -110px; transform: rotate(32deg); }
+.hero::after { bottom: 3%; right: -120px; transform: rotate(75deg); }
+.leaf { position: absolute; color: #7f9277; opacity: calc(.32 * var(--site-decoration-opacity)); font-size: 5rem; user-select: none; }
+.leaf.one { top: 7%; right: 8%; transform: rotate(35deg); }
+.leaf.two { bottom: 8%; left: 6%; transform: rotate(-25deg); }
+.card { width: min(100%, 650px); text-align: center; padding: clamp(30px, 7vw, 72px) clamp(20px, 7vw, 64px); border: 1px solid #c9b8a4; outline: 1px solid #c9b8a4; outline-offset: 7px; background: rgba(255,253,249,.72); box-shadow: 0 22px 65px rgba(83,67,48,.08); position: relative; }
+.eyebrow { text-transform: uppercase; letter-spacing: .24em; font: 11px/1.8 Arial, sans-serif; color: #71836b; }
+h1 { font: 400 clamp(2.8rem, 9vw, 5.6rem)/.98 var(--site-font-heading); letter-spacing: -.055em; margin: 20px 0 12px; color: #4c5e49; }
+.amp { font-style: italic; font-size: .72em; color: #b18b70; }
+.intro { max-width: 390px; margin: 22px auto; font-size: 1.06rem; line-height: 1.8; color: #675c53; }
+.rule { width: 64px; height: 1px; background: #b99a7d; margin: 26px auto; }
+.date { text-transform: uppercase; letter-spacing: .16em; font: 12px/1.8 Arial, sans-serif; color: #756b61; }
+button, .button { border: 0; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 13px 22px; background: var(--site-primary); color: var(--site-on-primary); font: 12px Arial, sans-serif; letter-spacing: .09em; text-transform: uppercase; text-decoration: none; transition: transform .2s, background .2s; }
+button:hover, .button:hover { transform: translateY(-2px); background: #52634f; }
+main section { padding: 76px 22px; text-align: center; }
+.details { background: #ede6dc; }
+.section-label { text-transform: uppercase; letter-spacing: .22em; font: 10px Arial, sans-serif; color: #71836b; }
+h2 { font: 400 clamp(2rem, 6vw, 3.2rem)/1.1 var(--site-font-heading); color: #4c5e49; margin: 15px 0 24px; }
+.detail-grid { max-width: 760px; margin: 30px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.detail { padding: 24px 12px; border-top: 1px solid #c7b6a2; border-bottom: 1px solid #c7b6a2; }
+.detail h3 { font: 11px Arial,sans-serif; text-transform: uppercase; letter-spacing: .16em; color: #71836b; }
+.detail p { line-height: 1.65; margin: 10px 0 0; }
+.rsvp { background: #f8f5f0; }
+.rsvp p { line-height: 1.8; max-width: 460px; margin: 0 auto 25px; }
+footer { padding: 28px 15px; text-align: center; background: #e3e7de; color: #596853; font-style: italic; }
+.editor { background: #fffdf9; padding: 38px 20px 48px; text-align: left; }
+.editor-inner { max-width: 760px; margin: auto; }
+.editor h2 { font-size: 2rem; text-align: center; }
+.editor-note { text-align: center; color: #74695f; line-height: 1.6; }
+.form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 24px; }
+label { display: grid; gap: 7px; font: 11px Arial,sans-serif; letter-spacing: .04em; text-transform: uppercase; color: #5d6e58; }
+input, textarea { width: 100%; border: 1px solid #d5c8b8; padding: 12px; font: 15px Georgia,serif; background: #fff; color: #342e2a; border-radius: 0; }
+.wide { grid-column: 1/-1; }
+.editor-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:20px; }
+button.secondary { background: #e8ded2; color: #453b35; }
+#status { text-align:center; min-height:1.4em; color:#5b7454; margin-top:12px; font-size:14px; }
+#envelope { display:none; position:fixed; inset:0; z-index:5; background:linear-gradient(165deg,#6b7d68,#52634f); opacity:1; place-items:center; padding:22px; }
+#envelope.open { display:grid; animation: fadeIn .5s ease; }
+.envelope-card { width:min(100%,420px); padding:48px 26px; text-align:center; background:#f8f2e9; color:#4c5e49; border:1px solid #c5ae94; box-shadow:0 20px 70px #15171266; }
+.envelope-card .seal { width:68px; height:68px; margin:0 auto 24px; border-radius:50%; display:grid; place-items:center; background:#71836b; color:#fff; font-size:27px; }
+/* Opción 2 cine: sobre inicial animado */
+#envelope.hidden { display:none !important; }
+.envelope-body { position:relative; width:min(100%,420px); margin:0 auto; perspective:900px; background:linear-gradient(165deg,#6b7d68,#52634f); opacity:1; overflow:hidden; border:1px solid #c9b8a4; box-shadow:0 20px 70px #15171266, inset 0 0 60px #2f3a2c33; }
+.letter { position:relative; z-index:1; background:#fffdf9; color:#4c5e49; border:1px solid #c5ae94; padding:26px 18px; transform: translateY(110%); opacity:0; visibility:hidden; pointer-events:none; transition: transform .8s ease .15s, opacity .8s ease .15s, visibility 0s linear .95s; }
+#envelope.opening .letter { transform: translateY(-70px); opacity:1; visibility:visible; pointer-events:auto; transition: transform .8s ease .15s, opacity .8s ease .15s, visibility 0s; }
+.flap { position:absolute; top:0; left:0; right:0; height:46%; z-index:2; background:#8ba184; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .6s ease; }
+#envelope.opening .flap { transform: rotateX(180deg); }
+#envelope .seal { position:absolute; left:50%; top:38%; transform:translate(-50%,-50%); z-index:5; }
+.envelope-note { position:absolute; left:50%; top:63%; transform:translate(-50%,-50%); z-index:5; background:#f8f2e9; border:1px solid #c9b8a4; box-shadow:0 10px 30px #15171255, inset 0 0 24px #eadfd355; padding:16px 20px; text-align:center; pointer-events:none; width:min(78%,280px); transition:opacity .4s ease; }
+.note-title { font-family:var(--site-font-heading); font-size:1.05rem; color:#4c5e49; margin:0 0 6px; }
+.note-sub { font:11px Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#71836b; margin:0; }
+#envelope.opening .envelope-note { opacity:0; }
+.open-hint { margin:18px 0 14px; letter-spacing:.14em; text-transform:uppercase; font:11px Arial,sans-serif; color:#71836b; }
+@media (max-width: 480px) { .envelope-body { width:min(100%,420px); } .flap { height:44%; } }
+@media (prefers-reduced-motion: reduce) { .flap, .letter, #envelope.opening .flap, #envelope.opening .letter { transition:none !important; animation:none !important; transform:none !important; } }
+@keyframes fadeIn { from {opacity:0} to {opacity:1} }
+@media (max-width: 600px) { .detail-grid { grid-template-columns:1fr; gap:0; } .detail { padding:16px 10px; } .form-grid { grid-template-columns:1fr; } .wide { grid-column:auto; } }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+/* Opcion 1 liviana: corto + musica */
+#corto { background: #f8f5f0; }
+.corto-wrap { max-width: 760px; margin: 26px auto 0; }
+.corto-frame { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border: 1px solid #c9b8a4; outline: 1px solid #c9b8a4; outline-offset: 7px; background: #f8f5f0; }
+.corto-slide { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease; }
+.corto-slide.active { opacity: 1; z-index: 1; }
+.corto-slide img { width: 100%; height: 100%; object-fit: contain; object-position: center; transform-origin: center; display: block; }
+.corto-slide.active img { animation: none; }
+.corto-frame.paused .corto-slide.active img { animation-play-state: paused; }
+@keyframes kenburns { from { transform: scale(1); transform-origin: center; } to { transform: scale(1.08); transform-origin: center; } }
+.corto-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.corto-dots { display: inline-flex; gap: 8px; }
+.corto-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #6b7d68; background: transparent; padding: 0; }
+.corto-dot.active { background: #6b7d68; }
+#musicBtn { position: fixed; right: 18px; bottom: 18px; z-index: 10; width: 52px; height: 52px; border-radius: 50%; padding: 0; background: #6b7d68; color: #eadfd3; font-size: 20px; box-shadow: 0 8px 24px rgba(0,0,0,.25); border: 2px solid #eadfd3; }
+#musicBtn:hover { background: #52634f; transform: none; }
+#musicBtn.paused { background: #eadfd3; color: #6b7d68; border-color: #6b7d68; animation: music-pulse 1.6s ease-in-out infinite; }
+@keyframes music-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+#audioHint:not([hidden]) { display: block; }
+/* Hint scroll premium hero */
+.scroll-hint { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 26px; cursor: pointer; color: #71836b; background: transparent; border: 0; font: 11px Arial, sans-serif; letter-spacing: .22em; text-transform: uppercase; animation: scroll-hint-pulse 1.6s ease-in-out infinite; }
+.scroll-hint .chevrons { font-size: 1.1rem; line-height: 1; letter-spacing: .1em; transform: rotate(0deg); }
+@keyframes scroll-hint-pulse { 0%,100% { opacity: .45; transform: translateY(0); } 50% { opacity: 1; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-hint { animation: none !important; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <section class="hero" id="inicio">
+    <span class="leaf one" aria-hidden="true">❧</span><span class="leaf two" aria-hidden="true">❦</span>
+    <div class="card">
+      <div class="eyebrow">Con la bendición de Dios</div>
+      <h2><span id="name1">Andres Misas Salazar</span><br><span class="amp">&amp;</span><br><span id="name2">Sandy Zuluaga Florez</span></h2>
+      <p class="intro" id="heroMessage">El amor, el amor, el amor idiota o brillante nos atrapa a todos por igual. Pero a veces, cuando estás solo en la habitación mirando el techo, te das cuenta de que el amor es solo una forma de no tener tanto miedo a la oscuridad.</p>
+      <div class="rule"></div>
+      <div class="date" id="heroDate">Sábado, 19 de diciembre de 2026</div>
+      <div class="scroll-hint" data-scroll-hint role="button" tabindex="0" aria-label="Desliza para ver detalles"><span>desliza</span><span class="chevrons" aria-hidden="true">﹀﹀</span></div>
+    </div>
+  </section>
+  <main>
+    <section class="details" id="detalles">
+      <div class="section-label">Un día para recordar</div>
+      <h2>Nos casamos</h2>
+      <p style="max-width:490px;margin:0 auto;line-height:1.8">Con mucha alegría queremos compartir contigo uno de los días más especiales de nuestras vidas.</p>
+      <p class="dress-code" style="max-width:490px;margin:14px auto 0;line-height:1.8;font-size:.95rem;color:#675c53;font-style:italic">El blanco se reserva para la novia. Nuestra temática es campestre, ven con ropa cómoda y adecuada para el campo.</p>
+      <div class="detail-grid">
+        <div class="detail"><h3>La fecha</h3><p id="detailDate">Sábado, 19 de diciembre de 2026</p></div>
+        <div class="detail"><h3>La ceremonia</h3><p id="detailTime">10:00 a. m.</p></div>
+        <div class="detail"><h3>El lugar</h3><p id="detailPlace">Vereda El Cerro Raizal, Carmen de Viboral</p></div>
+      </div>
+      <div class="gift-block" style="max-width:490px;margin:18px auto 0;padding:14px 16px;border:1px dashed #b89a6a;border-radius:12px;background:#fffdf7"><h3 style="margin:0 0 6px">✉️ Lluvia de sobres</h3><p style="margin:0;line-height:1.7">Tu presencia es nuestro mejor regalo. Si deseas obsequiarnos, será lluvia de sobres.</p></div>
+    </section>
+    <section id="corto" aria-label="Nuestra historia">
+      <div class="section-label">Un vistazo a nuestra historia</div>
+      <h2>Nuestra historia</h2>
+      <div class="corto-wrap">
+        <div class="corto-frame" id="cortoFrame">
+          <div class="corto-slide active"><img src="matri1.jpeg" alt="Recuerdo 1" decoding="async" loading="eager" fetchpriority="high" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri2.jpeg" alt="Recuerdo 2" decoding="async" loading="eager" fetchpriority="high" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri3.jpeg" alt="Recuerdo 3" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri4.jpeg" alt="Recuerdo 4" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri5.jpeg" alt="Recuerdo 5" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri6.jpeg" alt="Recuerdo 6" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri7.jpeg" alt="Recuerdo 7" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri8.jpeg" alt="Recuerdo 8" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri9.jpeg" alt="Recuerdo 9" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri10.jpeg" alt="Recuerdo 10" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+          <div class="corto-slide"><img src="matri12.jpeg" alt="Recuerdo 11" decoding="async" loading="lazy" onerror="window.__cortoImgError&&window.__cortoImgError(this)"></div>
+        </div>
+        <p id="cortoMotionNote" hidden style="max-width:490px;margin:12px auto 0;line-height:1.7;color:#675c53;font-style:italic">Movimiento reducido: historia en foto fija (sin animación).</p>
+      </div>
+    </section>
+  </main>
+  <footer>“El amor todo lo espera, todo lo soporta.” · 1 Corintios 13:7</footer>
+</div>
+<audio id="bgMusic" src="musica-fondo.mp3" type="audio/mpeg" loop preload="auto" playsinline webkit-playsinline></audio>
+<button id="musicBtn" aria-label="Pausar música" title="Música">♪</button>
+<div id="audioHint" hidden style="position:fixed;right:18px;bottom:78px;z-index:10;max-width:230px;background:#453b35;color:#fff;font:12px Arial,sans-serif;padding:10px 12px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)">Toca ♪ para activar la música</div>
+<div id="envelope" class="open" role="dialog" aria-modal="true" aria-label="Invitación de matrimonio">
+  <div class="envelope-card"><div class="envelope-body"><div class="letter"><div class="eyebrow">Una invitación especial</div><p id="modalNames" style="font-size:1.25rem;line-height:1.6"></p><p id="modalDate" style="line-height:1.8"></p></div><div class="flap" data-flap aria-hidden="true"></div><button class="seal" id="sealBtn" aria-label="Abrir invitación">♡</button><div class="envelope-note"><p class="note-title">Tenemos algo para ti ♡</p></div></div></div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const FIXED_NAMES = 'Andres Misas Salazar & Sandy Zuluaga Florez';
+const FIXED_DATE = 'Sábado, 19 de diciembre de 2026';
+const FIXED_TIME = '10:00 a. m.';
+const FIXED_PLACE = 'Vereda El Cerro Raizal, Carmen de Viboral';
+
+function syncFixedTexts() {
+  if ($('heroDate')) $('heroDate').textContent = FIXED_DATE;
+  if ($('detailDate')) $('detailDate').textContent = FIXED_DATE;
+  if ($('detailTime')) $('detailTime').textContent = FIXED_TIME;
+  if ($('detailPlace')) $('detailPlace').textContent = FIXED_PLACE;
+  if ($('modalNames')) $('modalNames').textContent = FIXED_NAMES;
+  if ($('modalDate')) $('modalDate').textContent = FIXED_DATE + ' · ' + FIXED_TIME + '\n' + FIXED_PLACE;
+}
+syncFixedTexts();
+
+function showAudioHint(msg) {
+  const h = $('audioHint');
+  if (!h) return;
+  if (msg) {
+    try { h.textContent = msg; } catch (e) {}
+  }
+  h.hidden = false;
+}
+function hideAudioHint() {
+  const h = $('audioHint');
+  if (h) h.hidden = true;
+}
+function playMusic() {
+  const a = $('bgMusic');
+  if (!a) return;
+  try { a.volume = 1; } catch (e) {}
+  // NEVER set src from JS: audio src frozen to avoid iPhone AbortError.
+  // Single play path: only this function calls play.
+  try {
+    const p = a.play();
+    if (p && p.then) {
+      p.then(function () { try { syncMusicBtn(true); hideAudioHint(); } catch (e) {} }).catch(function (err) {
+        try {
+          const nm = (err && err.name) ? err.name : 'Error';
+          const ms = (err && err.message) ? err.message : '';
+          syncMusicBtn(false);
+          showAudioHint('Toca ♪ para activar la música (' + nm + (ms ? ': ' + ms : '') + ')');
+        } catch (e) {}
+      });
+    } else {
+      if (a.paused) {
+        syncMusicBtn(false);
+        showAudioHint('Toca ♪ para activar la música (Error: sin promesa)');
+      } else {
+        syncMusicBtn(true);
+        hideAudioHint();
+      }
+    }
+  } catch (e) {}
+}
+function pauseMusic() {
+  const a = $('bgMusic');
+  if (!a) return;
+  try { a.pause(); } catch (e) {}
+}
+// WebAudio unlock for iPhone WhatsApp preview: gesture resume + single decode, in-preview only.
+let audioCtx = null;
+let cachedAudioBuffer = null;
+let audioSrcNode = null;
+let audioGainNode = null;
+let audioXhrStarted = false;
+let useWebAudio = false;
+function b64ToArrayBuffer(b64) {
+  const clean = String(b64).replace(/\s/g, '');
+  const chunk = 0x8000;
+  const bytes = [];
+  for (let i = 0; i < clean.length; i += chunk) {
+    const part = clean.slice(i, i + chunk);
+    const bin = atob(part);
+    for (let j = 0; j < bin.length; j++) bytes.push(bin.charCodeAt(j));
+  }
+  const u8 = new Uint8Array(bytes);
+  return u8.buffer;
+}
+function ensureAudioCtx() {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return null;
+  if (!audioCtx) {
+    try { audioCtx = new AC(); } catch (e) { return null; }
+  }
+  return audioCtx;
+}
+function playBuffered() {
+  const ctx = audioCtx;
+  if (!ctx || !cachedAudioBuffer) return;
+  try { if (audioSrcNode) { try { audioSrcNode.stop(); } catch (e) {} } } catch (e) {}
+  const src = ctx.createBufferSource();
+  src.loop = true;
+  const g = ctx.createGain();
+  g.gain.value = 0.9;
+  src.connect(g);
+  g.connect(ctx.destination);
+  src.start(0);
+  audioSrcNode = src;
+  audioGainNode = g;
+  useWebAudio = true;
+  try { const a = $('bgMusic'); if (a && !a.paused) a.pause(); } catch (e) {}
+  syncMusicBtn(true);
+  hideAudioHint();
+}
+function startMusic() {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) { try { playMusic(); } catch (e) {} return; }
+  let ctx = null;
+  try { ctx = ensureAudioCtx(); } catch (e) { ctx = null; }
+  if (!ctx) { try { playMusic(); } catch (e) {} return; }
+  try { const r = ctx.resume(); if (r && r.catch) r.catch(function(){}); } catch (e) {}
+  if (cachedAudioBuffer) {
+    try { playBuffered(); } catch (err) {
+      try { const nm = (err && err.name) ? err.name : 'Error'; const ms = (err && err.message) ? err.message : ''; syncMusicBtn(false); showAudioHint('Toca ♪ para activar la música (' + nm + (ms ? ': ' + ms : '') + ')'); } catch (e) {}
+      try { playMusic(); } catch (e) {}
+    }
+    return;
+  }
+  try {
+    if (window.audioDataB64) {
+      let ab = null;
+      try { ab = b64ToArrayBuffer(window.audioDataB64); } catch (err) {
+        try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+        try { playMusic(); } catch (e) {}
+        return;
+      }
+      try {
+        ctx.decodeAudioData(ab, function(buf){ cachedAudioBuffer = buf; try { playBuffered(); } catch (err2) { try { playMusic(); } catch (e) {} } }, function(err){ try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {} try { playMusic(); } catch (e) {} });
+      } catch (err) {
+        try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+        try { playMusic(); } catch (e) {}
+      }
+      return;
+    }
+  } catch (e) {}
+  if (audioXhrStarted) { try { playMusic(); } catch (e) {} return; }
+  audioXhrStarted = true;
+  try {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'musica-fondo.mp3', true);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function() {
+      try {
+        const buf = xhr.response;
+        if (!buf) { try { playMusic(); } catch (e) {} return; }
+        ctx.decodeAudioData(buf, function(dec){ cachedAudioBuffer = dec; try { playBuffered(); } catch (err) { try { playMusic(); } catch (e) {} } }, function(err){ try { const nm = (err && err.name) ? err.name : 'Error'; const ms = (err && err.message) ? err.message : ''; showAudioHint('Toca ♪ para activar la música (' + nm + (ms ? ': ' + ms : '') + ')'); } catch (e) {} try { playMusic(); } catch (e) {} });
+      } catch (err) {
+        try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+        try { playMusic(); } catch (e) {}
+      }
+    };
+    xhr.onerror = function(err) {
+      try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+      try { playMusic(); } catch (e) {}
+    };
+    xhr.send();
+  } catch (err) {
+    try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+    try { playMusic(); } catch (e) {}
+  }
+}
+function toggleMusic() {
+  if (audioCtx && cachedAudioBuffer && useWebAudio) {
+    if (audioCtx.state === 'running') {
+      try { audioCtx.suspend(); } catch (e) {}
+      syncMusicBtn(false);
+    } else {
+      try { const r = audioCtx.resume(); if (r && r.then) { r.then(function(){ syncMusicBtn(true); hideAudioHint(); }); } else { syncMusicBtn(true); hideAudioHint(); } } catch (err) { try { playMusic(); } catch (e) {} }
+    }
+    return;
+  }
+  try { startMusic(); } catch (e) {}
+}
+// Opcion A definitiva: src congelado, sin Blob/fetch/idle. Solo gesto -> playMusic().
+let userInteracted = false;
+let userPausedMusic = false;
+function markInteracted() {
+  try { userInteracted = true; } catch (e) {}
+  try {
+    const a = $('bgMusic');
+    if (a && a.paused && !userPausedMusic) showAudioHint('Toca ♪ para activar la música');
+  } catch (e) {}
+}
+
+// Corto liviano: crossfade 0.6s sin librerias (Opcion 2: precarga progresiva)
+const slides = Array.from(document.querySelectorAll('#corto .corto-slide'));
+const dots = Array.from(document.querySelectorAll('.corto-dot'));
+const frame = $('cortoFrame');
+const toggleBtn = $('cortoToggle');
+let cortoIdx = 0;
+let cortoPlaying = true;
+let cortoTimer = null;
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function cortoImgAt(i) {
+  if (!slides.length) return null;
+  const j = (i + slides.length) % slides.length;
+  return slides[j] ? slides[j].querySelector('img') : null;
+}
+function isDecoded(img) {
+  try {
+    return !!img && img.complete && typeof img.naturalWidth === 'number' && img.naturalWidth > 0;
+  } catch (e) { return false; }
+}
+function preloadNext() {
+  try {
+    const next = cortoImgAt(cortoIdx + 1);
+    if (!next) return;
+    const src = next.getAttribute('src') || '';
+    if (!src || next.dataset.preloaded) return;
+    const im = new Image();
+    im.decoding = 'async';
+    im.src = src;
+    try {
+      if (im.decode) im.decode().catch(function () {});
+    } catch (e) {}
+    next.dataset.preloaded = '1';
+  } catch (e) {}
+}
+function showSlide(i) {
+  if (!slides.length) return;
+  const target = (i + slides.length) % slides.length;
+  // Option 2 gate: only advance when target img is decoded; otherwise preload and hold
+  const img = cortoImgAt(target);
+  if (target !== cortoIdx && !isDecoded(img)) {
+    preloadNext();
+    try {
+      if (img && !img.dataset.preloaded) {
+        const im = new Image();
+        im.decoding = 'async';
+        im.src = img.getAttribute('src') || '';
+        img.dataset.preloaded = '1';
+      }
+    } catch (e) {}
+    return;
+  }
+  cortoIdx = target;
+  slides.forEach((s, k) => s.classList.toggle('active', k === cortoIdx));
+  if (dots.length) dots.forEach((d, k) => d.classList.toggle('active', k === cortoIdx));
+  preloadNext();
+}
+window.__cortoImgError = function (img) {
+  try {
+    // Option 2: broken image skips to next decoded slide
+    const slidesArr = Array.from(document.querySelectorAll('#corto .corto-slide'));
+    let idx = -1;
+    for (let k = 0; k < slidesArr.length; k++) {
+      if (slidesArr[k].contains(img)) { idx = k; break; }
+    }
+    if (idx >= 0) showSlide(idx + 1);
+    else showSlide(cortoIdx + 1);
+  } catch (e) {}
+};
+function tickCorto() {
+  try {
+    const next = cortoImgAt(cortoIdx + 1);
+    if (isDecoded(next)) showSlide(cortoIdx + 1);
+    else preloadNext();
+  } catch (e) {}
+}
+function startCorto() {
+  stopCorto();
+  if (reduceMotion) { // fixed on first photo + textual notice (Option 2)
+    try { if ($('cortoMotionNote')) $('cortoMotionNote').hidden = false; } catch (e) {}
+    return;
+  }
+  preloadNext();
+  cortoTimer = setInterval(tickCorto, 4000);
+  cortoPlaying = true;
+  if (frame) frame.classList.remove('paused');
+  if (toggleBtn) toggleBtn.textContent = '⏸ Pausa';
+}
+function stopCorto() {
+  if (cortoTimer) clearInterval(cortoTimer);
+  cortoTimer = null;
+}
+function pauseCorto() {
+  stopCorto();
+  cortoPlaying = false;
+  if (frame) frame.classList.add('paused');
+  if (toggleBtn) toggleBtn.textContent = '▶ Play';
+}
+if (toggleBtn) toggleBtn.addEventListener('click', () => {
+  if (cortoPlaying) { pauseCorto(); }
+  else { startCorto(); }
+});
+if (dots.length) dots.forEach(d => d.addEventListener('click', () => {
+  showSlide(parseInt(d.dataset.i || '0', 10));
+}));
+if (!reduceMotion) startCorto(); else { pauseCorto(); try { if ($('cortoMotionNote')) $('cortoMotionNote').hidden = false; } catch (e) {} }
+
+// Hint scroll premium hero -> #detalles (respeta reduced-motion)
+(function () {
+  var h = document.querySelector('[data-scroll-hint]');
+  if (!h) return;
+  function go() {
+    var d = document.getElementById('detalles');
+    if (!d || !d.scrollIntoView) return;
+    var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rm) d.scrollIntoView();
+    else d.scrollIntoView({ behavior: 'smooth' });
+  }
+  h.addEventListener('click', go);
+  h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+})();
+
+// Boton flotante controla musica + corto juntos
+const musicBtn = $('musicBtn');
+let musicOn = false;
+function syncMusicBtn(on) {
+  musicOn = on;
+  if (!musicBtn) return;
+  musicBtn.textContent = on ? '♪' : '♪';
+  musicBtn.classList.toggle('paused', !on);
+  musicBtn.setAttribute('aria-label', on ? 'Pausar música' : 'Reproducir música');
+}
+if (musicBtn) musicBtn.addEventListener('click', () => {
+  const a = $('bgMusic');
+  if (!a) return;
+  userInteracted = true;
+  if (audioCtx && cachedAudioBuffer && useWebAudio) {
+    if (audioCtx.state === 'running') {
+      userPausedMusic = true;
+      try { audioCtx.suspend(); } catch (e) {}
+      syncMusicBtn(false);
+      if (cortoPlaying) pauseCorto();
+    } else {
+      userPausedMusic = false;
+      try { const _r = audioCtx.resume(); if (_r && _r.then) { _r.then(function(){ syncMusicBtn(true); hideAudioHint(); }).catch(function(err){ try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {} }); } else { syncMusicBtn(true); hideAudioHint(); } } catch (err) {
+        try { const nm = (err && err.name) ? err.name : 'Error'; showAudioHint('Toca ♪ para activar la música (' + nm + ')'); } catch (e) {}
+      }
+      if (!cortoPlaying) startCorto();
+    }
+    try { if (!a.paused) a.pause(); } catch (e) {}
+  } else {
+    if (a.paused && !(audioCtx && audioCtx.state === 'running')) {
+      userPausedMusic = false;
+      try { startMusic(); } catch (e) {}
+      if (!cortoPlaying) startCorto();
+    } else {
+      userPausedMusic = true;
+      try { if (audioCtx) audioCtx.suspend(); } catch (e) {}
+      pauseMusic();
+      syncMusicBtn(false);
+      if (cortoPlaying) pauseCorto();
+    }
+  }
+});
+
+// Gestos de usuario: solo marcan interacted/hint, nunca hacen play (Opcion A).
+document.addEventListener('touchstart', function () { try { markInteracted(); } catch (e) {} }, { passive: true, capture: true });
+document.addEventListener('touchend', function () { try { markInteracted(); } catch (e) {} });
+document.addEventListener('click', function () { try { markInteracted(); } catch (e) {} });
+document.addEventListener('visibilitychange', function () {
+  try {
+    if (document.visibilityState !== 'visible') return;
+    markInteracted();
+  } catch (e) {}
+});
+try {
+  const _bg = $('bgMusic');
+  if (_bg) _bg.addEventListener('canplaythrough', function () {
+    try { markInteracted(); } catch (e) {}
+  });
+} catch (e) {}
+// Sobre cine: visible al cargar, se abre con solapa+carta y revela el hero
+function hideEnvelopeNow() {
+  if ($('envelope')) { $('envelope').classList.remove('open'); $('envelope').classList.remove('opening'); $('envelope').classList.add('hidden'); }
+}
+function revealAfterEnvelope() {
+  markInteracted();
+  const reduceRM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const d = $('inicio'); if (d && d.scrollIntoView) { if (reduceRM) d.scrollIntoView(); else d.scrollIntoView({behavior:'smooth'}); }
+}
+function openEnvelopeCine() {
+  const env = $('envelope');
+  if (!env || !env.classList.contains('open')) { revealAfterEnvelope(); return; }
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { hideEnvelopeNow(); revealAfterEnvelope(); return; }
+  env.classList.add('opening');
+  try { userInteracted = true; } catch (e) {}
+  try { if (audioCtx && audioCtx.resume) { const _rr = audioCtx.resume(); if (_rr && _rr.catch) _rr.catch(function(){}); } } catch (e) {}
+  try { startMusic(); } catch (e) {}
+  setTimeout(() => { hideEnvelopeNow(); revealAfterEnvelope(); }, 900);
+}
+if ($('sealBtn')) $('sealBtn').addEventListener('click', openEnvelopeCine);
+// Observer pasivo: solo marca interacted/hint, nunca hace play (Opcion A).
+try {
+  if ('IntersectionObserver' in window && $('corto')) {
+    const cortoObserver = new IntersectionObserver((entries) => {
+      try {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          if (reduceMotion) return;
+          try { cortoObserver.unobserve(entry.target); } catch (e) {}
+          try { markInteracted(); } catch (e) {}
+        });
+      } catch (e) {}
+    }, { threshold: 0.5 });
+    cortoObserver.observe($('corto'));
+  }
+} catch (e) {}
+if ($('envelope')) $('envelope').addEventListener('click', e => {
+  if (e.target === $('envelope')) openEnvelopeCine();
+});
+</script>
+</body>
+</html>
