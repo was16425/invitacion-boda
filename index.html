@@ -258,6 +258,7 @@ function playBuffered() {
   if (!ctx || !cachedAudioBuffer) return;
   try { if (audioSrcNode) { try { audioSrcNode.stop(); } catch (e) {} } } catch (e) {}
   const src = ctx.createBufferSource();
+  src.buffer = cachedAudioBuffer;
   src.loop = true;
   const g = ctx.createGain();
   g.gain.value = 0.9;
